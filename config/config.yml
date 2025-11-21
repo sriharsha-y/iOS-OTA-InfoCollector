@@ -1,0 +1,43 @@
+# iOS OTA Device Collector Configuration
+
+# Server configuration
+server:
+  port: 3000
+
+# Organization details (appears in the profile)
+organization:
+  name: "Your Organization Name"
+  identifier: "com.yourorganization.device-collector"  # Reverse domain notation
+  displayName: "Device Registration"
+  description: "Install this profile to register your device"
+
+# Certificate configuration
+certificate:
+  # Use self-signed certificate (auto-generated on first run)
+  useSelfSigned: true
+
+  # If you have an Apple Developer certificate, set useSelfSigned to false and provide:
+  userCertPath: "./config/certs/developer.p12"
+  userCertPassword: ""  # Password for the .p12 file
+
+# Device attributes to collect
+deviceAttributes:
+  - UDID
+  - IMEI
+  - SERIAL
+  - PRODUCT
+  - VERSION
+
+# Branding (customize the web interface)
+branding:
+  title: "Install Device Profile"
+  description: "This profile will allow us to identify your device. Your privacy is important to us."
+  logoUrl: ""  # Optional: URL to your logo image
+  primaryColor: "#0071e3"  # Apple blue by default
+
+# Security
+security:
+  # Rate limiting (requests per 15 minutes)
+  rateLimit:
+    windowMs: 900000  # 15 minutes
+    maxRequests: 10

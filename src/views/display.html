@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Device Information</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .success-banner {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-banner svg {
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .success-text {
+            color: #34c759;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .device-box {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-row:first-child {
+            padding-top: 0;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #333;
+            width: 140px;
+            flex-shrink: 0;
+            font-size: 15px;
+        }
+
+        .value-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f7;
+            border-radius: 8px;
+            padding: 10px 14px;
+        }
+
+        .value {
+            flex: 1;
+            color: #666;
+            word-break: break-all;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 14px;
+        }
+
+        .copy-btn {
+            background-color: #0071e3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            margin-left: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .copy-btn:hover {
+            background-color: #0077ED;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background-color: #34c759;
+        }
+
+        .device-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        .device-icon {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .device-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        .device-summary-text h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .device-summary-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .info-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .label {
+                margin-bottom: 8px;
+                width: 100%;
+            }
+
+            .value-container {
+                width: 100%;
+            }
+
+            .success-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .success-banner svg {
+                margin: 0 0 10px 0;
+            }
+
+            .device-summary {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .device-icon {
+                margin: 0 0 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-banner">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                <path fill="#34c759" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            <div class="success-text">Profile Successfully Installed!</div>
+        </div>
+
+        <script>
+            const hasProduct = '{{HAS_PRODUCT}}' === 'true';
+            if (hasProduct) {
+                document.write(`
+                    <div class="device-summary">
+                        <div class="device-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M15.5 1h-8C6.12 1 5 2.12 5 3.5v17C5 21.88 6.12 23 7.5 23h8c1.38 0 2.5-1.12 2.5-2.5v-17C18 2.12 16.88 1 15.5 1zm-4 21c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5-4H7V4h9v14z"/>
+                            </svg>
+                        </div>
+                        <div class="device-summary-text">
+                            <h3>{{PRODUCT}}</h3>
+                            <p>Running iOS {{VERSION}}</p>
+                        </div>
+                    </div>
+                `);
+            }
+        </script>
+
+        <div class="device-box">
+            <h2>Device Information</h2>
+
+            <div class="info-row">
+                <div class="label">UDID:</div>
+                <div class="value-container">
+                    <div class="value" id="udid">{{UDID}}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('udid', this)">Copy</button>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="label">IMEI:</div>
+                <div class="value-container">
+                    <div class="value" id="imei">{{IMEI}}</div>
+                    <script>
+                        const hasImei = '{{HAS_IMEI}}' === 'true';
+                        if (hasImei) {
+                            document.write('<button class="copy-btn" onclick="copyToClipboard(\'imei\', this)">Copy</button>');
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="label">Serial Number:</div>
+                <div class="value-container">
+                    <div class="value" id="serial">{{SERIAL}}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('serial', this)">Copy</button>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="label">Device Model:</div>
+                <div class="value-container">
+                    <div class="value" id="product">{{PRODUCT}}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('product', this)">Copy</button>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="label">iOS Version:</div>
+                <div class="value-container">
+                    <div class="value" id="version">{{VERSION}}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('version', this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="device-box">
+            <h2>All Data</h2>
+            <div class="info-row">
+                <div class="label">Copy All:</div>
+                <div class="value-container">
+                    <div class="value" id="all-data">UDID: {{UDID}}
+IMEI: {{IMEI}}
+Serial: {{SERIAL}}
+Model: {{PRODUCT}}
+iOS: {{VERSION}}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('all-data', this)">Copy All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId, button) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent.trim();
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+    </script>
+</body>
+</html>

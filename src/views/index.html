@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>{{TITLE}}</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #1d1d1f;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px 30px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: {{PRIMARY_COLOR}};
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 113, 227, 0.3);
+        }
+
+        .icon svg {
+            width: 45px;
+            height: 45px;
+            fill: white;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1d1d1f;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #86868b;
+            margin-bottom: 30px;
+        }
+
+        .install-btn {
+            background: {{PRIMARY_COLOR}};
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 40px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4);
+        }
+
+        .install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 113, 227, 0.6);
+        }
+
+        .install-btn:active {
+            transform: translateY(0);
+        }
+
+        .qr-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .qr-section h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1d1d1f;
+        }
+
+        .qr-code {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-code img {
+            display: block;
+            width: 200px;
+            height: 200px;
+        }
+
+        .note {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #86868b;
+            line-height: 1.5;
+        }
+
+        .steps {
+            text-align: left;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f5f5f7;
+            border-radius: 12px;
+        }
+
+        .steps h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1d1d1f;
+        }
+
+        .steps ol {
+            margin-left: 20px;
+        }
+
+        .steps li {
+            font-size: 14px;
+            color: #515154;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .qr-code img {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+            </svg>
+        </div>
+
+        <h1>{{TITLE}}</h1>
+        <p>{{DESCRIPTION}}</p>
+
+        <a href="{{INSTALL_URL}}" class="install-btn">Install Profile</a>
+
+        <div class="steps">
+            <h3>Installation Steps:</h3>
+            <ol>
+                <li>Click "Install Profile" button above</li>
+                <li>Profile will be downloaded to your device</li>
+                <li>Go to <strong>Settings</strong> → <strong>General</strong> → <strong>VPN & Device Management</strong></li>
+                <li>Tap on the downloaded profile and install it</li>
+                <li>Your device information will be displayed</li>
+            </ol>
+        </div>
+
+        <div class="qr-section">
+            <h2>Scan QR Code on Mobile</h2>
+            <div class="qr-code">
+                <img src="{{QR_CODE}}" alt="QR Code for installation">
+            </div>
+            <div class="note">
+                Scan this QR code with your iOS device's camera to quickly access the installation page.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
